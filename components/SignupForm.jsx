@@ -11,6 +11,7 @@ import styles from "@/components/Sign.module.css";
 import Link from "next/link";
 import { fetchApi } from "@/utils/axiosInstance";
 import Popup from "./Popup/Popup";
+import { validateEmail, validatePassword } from "@/utils/validation";
 
 export default function SignUp() {
   const router = useRouter();
@@ -54,15 +55,6 @@ export default function SignUp() {
       }
     },
   });
-
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
-
-  const validatePassword = (password) => {
-    return password.length >= 8;
-  };
 
   const handleEmailChange = (e) => {
     const value = e.target.value;

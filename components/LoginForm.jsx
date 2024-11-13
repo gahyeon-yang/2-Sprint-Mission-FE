@@ -10,8 +10,8 @@ import google from "@/images/icon/google.svg";
 import styles from "@/components/Sign.module.css";
 import Link from "next/link";
 import Popup from "./Popup/Popup";
-import { fetchApi } from "@/utils/axiosInstance";
 import { useAuth } from "@/contexts/AuthProvider";
+import { validateEmail, validatePassword } from "@/utils/validation";
 
 export default function Login() {
   const router = useRouter();
@@ -45,15 +45,6 @@ export default function Login() {
   });
 
   const { login } = useAuth();
-
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
-
-  const validatePassword = (password) => {
-    return password.length >= 8;
-  };
 
   const handleEmailChange = (e) => {
     const value = e.target.value;

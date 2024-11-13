@@ -12,7 +12,7 @@ const ProductList = () => {
   const [limit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("recent"); // 좋아요 순 필요 없어서 useState를 사용해야하나..?
+  const [sort, setSort] = useState("recent");
   const router = useRouter();
 
   useEffect(() => {
@@ -101,7 +101,13 @@ const ProductList = () => {
               className={styles.item_card}
               onClick={() => handleProductClick(product.id)}
             >
-              <Image src={img_default} alt="이미지 없음" />
+              <img
+                src={product.images ? product.images : img_default}
+                alt={product.name || "이미지 없음"}
+                width={300}
+                height={300}
+              />
+
               <h3 className={styles.item_name}>{product.name}</h3>
               <p className={styles.item_price}>
                 {product.price.toLocaleString()}원

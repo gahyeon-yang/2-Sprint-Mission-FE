@@ -11,7 +11,7 @@ import EditDeleteModal from "../EditDeleteModal/EditDeleteModal";
 import DeletePopup from "@/components/DeletePopup/DeletePopup";
 import Popup from "../Popup/Popup";
 import { useRouter } from "next/router";
-
+import { formatDate } from "@/utils/formatDate";
 const fetchProductDetail = async (id) => {
   if (id) {
     try {
@@ -21,17 +21,6 @@ const fetchProductDetail = async (id) => {
       console.error(error);
     }
   }
-};
-
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-  const formattedDate = date.toLocaleDateString("ko-KR", options);
-
-  return formattedDate
-    .replace(/\//g, " .")
-    .replace(/\s/g, " ")
-    .replace(/\.$/, "");
 };
 
 export default function ProductDetails({ productId }) {
