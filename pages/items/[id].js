@@ -113,7 +113,10 @@ export default function Market() {
 
   const toggleModal = (e, commentId) => {
     const rect = e.target.getBoundingClientRect();
-    setModalPosition({ top: rect.top + 5, left: rect.left - 20 });
+    setModalPosition({
+      top: rect.bottom + window.scrollY + 5,
+      left: rect.left - 150,
+    });
     setIsModalOpen(true);
     setSelectedCommentId(commentId);
   };
@@ -164,11 +167,7 @@ export default function Market() {
         <EditDeleteModal
           onDelete={handleDeleteComment}
           onEdit={() => handleEditClick(selectedCommentId)}
-          style={{
-            position: "absolute",
-            top: `${modalPosition.top}px`,
-            left: `${modalPosition.left}px`,
-          }}
+          position={modalPosition}
         />
       )}
     </>

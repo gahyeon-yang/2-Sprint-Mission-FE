@@ -12,6 +12,7 @@ import DeletePopup from "@/components/DeletePopup/DeletePopup";
 import Popup from "../Popup/Popup";
 import { useRouter } from "next/router";
 import { formatDate } from "@/utils/formatDate";
+
 const fetchProductDetail = async (id) => {
   if (id) {
     try {
@@ -49,11 +50,15 @@ export default function ProductDetails({ productId }) {
 
   const toggleModal = (e, isProduct = false, productId = null) => {
     const rect = e.target.getBoundingClientRect();
-    setModalPosition({ top: rect.top + 25, left: rect.left - 130 });
+    setModalPosition({
+      top: rect.bottom + window.scrollY + 5,
+      left: rect.left - 150,
+    });
     setIsModalOpen((prev) => !prev);
     setIsProductModal(isProduct);
     setSelectedProductId(productId);
   };
+
   const closePopup = () => {
     setIsPopupOpen(false);
   };
@@ -203,11 +208,7 @@ export default function ProductDetails({ productId }) {
         <EditDeleteModal
           onEdit={handleEditClick}
           onDelete={handleDeleteClick}
-          style={{
-            position: "absolute",
-            top: `${modalPosition.top}px`,
-            left: `${modalPosition.left}px`,
-          }}
+          position={modalPosition}
         />
       )}
       {isPopupOpen && <Popup message={popupMessage} onClose={closePopup} />}
