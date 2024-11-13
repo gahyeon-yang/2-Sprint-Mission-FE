@@ -62,26 +62,28 @@ export default function ProductDetails({ productId }) {
   const closePopup = () => {
     setIsPopupOpen(false);
   };
-  const handleEditClick = () => {
-    setIsModalOpen(false);
 
-    if (isProductModal && selectedProductId) {
-      setEditProductId(selectedProductId);
-      if (product && product.id === selectedProductId) {
-        setEditProduct(product.content);
-        router.push({
-          pathname: `/items/edit/${selectedProductId}`,
-          query: {
-            name: product.name,
-            price: product.price,
-            description: product.description,
-            tags: JSON.stringify(product.tags),
-          },
-        });
-      }
-    } else {
+  const handleEditClick = () => {
+    if (!isProductModal && !selectedProductId) {
       router.push(`/items/edit/${selectedProductId}`);
+      return;
     }
+    if (!product && product.id !== selectedProductId) {
+      return;
+    }
+    setIsModalOpen(false);
+    setEditProductId(selectedProductId);
+    setEditProduct(product.content);
+
+    router.push({
+      pathname: `/items/edit/${selectedProductId}`,
+      query: {
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        tags: JSON.stringify(product.tags),
+      },
+    });
   };
 
   const handleDeleteClick = () => {
