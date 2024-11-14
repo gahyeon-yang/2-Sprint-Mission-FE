@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchApi } from "@/utils/axiosInstance";
-import img_default from "../../images/etc/img_default.svg";
+import nonImage from "@/images/etc/nonImage.svg";
 import likeButton from "../../images/etc/likeButton.svg";
 import styles from "./ProductList.module.css";
 import { useRouter } from "next/router";
@@ -61,6 +61,11 @@ const ProductList = () => {
   const handleProductClick = (productId) => {
     router.push(`/items/${productId}`);
   };
+
+  const getImageUrl = (images) => {
+    return Array.isArray(images) && images.length > 0 ? images[0] : nonImage;
+  };
+
   return (
     <>
       <div className={styles.product_list_wrapper}>
@@ -102,7 +107,7 @@ const ProductList = () => {
               onClick={() => handleProductClick(product.id)}
             >
               <img
-                src={product.images ? product.images : img_default}
+                src={getImageUrl(product.images)}
                 alt={product.name || "이미지 없음"}
                 width={300}
                 height={300}
